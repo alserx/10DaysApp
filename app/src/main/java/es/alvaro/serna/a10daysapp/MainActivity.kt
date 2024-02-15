@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import es.alvaro.serna.a10daysapp.StrawHatScreen.StrawHatCard
+import es.alvaro.serna.a10daysapp.model.StrawHat
 import es.alvaro.serna.a10daysapp.model.StrawHatRepository.strawHats
 import es.alvaro.serna.a10daysapp.ui.theme.The10DaysAppTheme
 
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun The10DaysOfApp() {
+fun The10DaysOfApp(darkTheme: Boolean = isSystemInDarkTheme()) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -67,14 +68,7 @@ fun The10DaysOfApp() {
         }
     ) { it ->
         Box(modifier = Modifier.fillMaxSize()) {
-            Image(
-                modifier = Modifier.matchParentSize(),
-                painter =
-                if (isSystemInDarkTheme()) painterResource(R.drawable.dark_background)
-                else painterResource(R.drawable.light_background),
-                contentScale = ContentScale.FillHeight,
-                contentDescription = null,
-            )
+            BackgroundImage(darkTheme, Modifier.matchParentSize())
             LazyColumn(contentPadding = it) {
                 items(strawHats) {
                     StrawHatCard(
@@ -91,36 +85,52 @@ fun The10DaysOfApp() {
     }
 }
 
+@Composable
+fun BackgroundImage(darkTheme: Boolean, modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier,
+        painter =
+        if (darkTheme) painterResource(R.drawable.dark_background)
+        else painterResource(R.drawable.light_background),
+        contentScale = ContentScale.FillHeight,
+        contentDescription = null,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun The10DaysTopAppBar(modifier: Modifier = Modifier) {
     CenterAlignedTopAppBar(
         title = {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.displayLarge
-                )
-                Spacer(Modifier.width(dimensionResource(R.dimen.padding_small)))
-                Image(
-                    modifier = Modifier
-                        .width(dimensionResource(id = R.dimen.logo_size)),
-                    painter = painterResource(R.drawable.one_piece_logo),
-                    contentDescription = null
-                )
-            }
+            TitleRow()
         },
         modifier = modifier,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer.copy(
-                alpha = 0.7f
+                alpha = 0.8f
             )
         )
-        //.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = TopAndBottomBarsAlpha))
     )
+}
+
+@Composable
+private fun TitleRow() {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(R.string.app_name),
+            style = MaterialTheme.typography.displayLarge
+        )
+        Spacer(Modifier.width(dimensionResource(R.dimen.padding_small)))
+        Image(
+            modifier = Modifier
+                .width(dimensionResource(id = R.dimen.logo_size)),
+            painter = painterResource(R.drawable.one_piece_logo),
+            contentDescription = null
+        )
+    }
 }
 
 @Preview(showBackground = true)
@@ -135,22 +145,22 @@ fun AppPreview() {
 @Composable
 fun DarkAppPreview() {
     The10DaysAppTheme(darkTheme = true) {
-        The10DaysOfApp()
+        The10DaysOfApp(true)
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun CardPreview() {
-//    The10DaysAppTheme {
-//        StrawHatCard(
-//            StrawHat(
-//                R.string.day1,
-//                R.string.mugiwara1,
-//                R.string.alias1,
-//                R.string.description1,
-//                R.drawable.monkey_d_luffy
-//            )
-//        )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun CardPreview() {
+    The10DaysAppTheme {
+        StrawHatCard(
+            StrawHat(
+                R.string.day1,
+                R.string.mugiwara1,
+                R.string.alias1,
+                R.string.description1,
+                R.drawable.luffy
+            )
+        )
+    }
+}

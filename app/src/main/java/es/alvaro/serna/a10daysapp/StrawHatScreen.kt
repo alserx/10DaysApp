@@ -7,7 +7,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,57 +45,86 @@ object StrawHatScreen {
         var expanded by remember { mutableStateOf(false) }
         val color by animateColorAsState(
             targetValue =
-            if (expanded) MaterialTheme.colorScheme.tertiaryContainer
-            else MaterialTheme.colorScheme.secondaryContainer,
+            if (expanded) MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f)
+            else MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
             label = "Straw Hat Card background",
         )
+        val onClick = { expanded = !expanded }
+
         Card(
             modifier = modifier,
             shape = MaterialTheme.shapes.medium,
-            onClick = {
-                expanded = !expanded
-            }
+            onClick = onClick,
+            colors = CardDefaults.cardColors(containerColor = color)
         ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .animateContentSize(
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioMediumBouncy,
-                            stiffness = Spring.StiffnessMediumLow
-                        )
-                    )
-                    .background(color = color)
-                    .padding(
-                        horizontal = dimensionResource(R.dimen.padding_medium),
-                        vertical = dimensionResource(R.dimen.padding_small)
-                    )
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    verticalAlignment = Alignment.Top
-                ) {
-                    StrawHatTopText(strawHat.day, strawHat.name, strawHat.alias)
-                    Spacer(modifier = Modifier.weight(1f))
-                    ExpandButton(
-                        expanded = expanded
-                    ) {
-                        expanded = !expanded
-                    }
-                }
-                StrawHatImage(strawHat.image, strawHat.name)
+            CardContent(strawHat, expanded, onClick, modifier)
+        }
+    }
 
-                if (expanded) {
-                    StrawHatDescription(
-                        strawHat.description,
-                        modifier = modifier
-                            .padding(
-                                top = dimensionResource(R.dimen.padding_small),
-                                end = dimensionResource(R.dimen.padding_medium),
-                            )
+    @Composable
+    private fun CardContent(
+        strawHat: StrawHat,
+        expanded: Boolean,
+        onClick: () -> Unit,
+        modifier: Modifier
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMediumLow
                     )
-                }
-            }
+                )
+                .padding(
+                    horizontal = dimensionResource(R.dimen.padding_medium),
+                    vertical = dimensionResource(R.dimen.padding_small)
+                )
+                .fillMaxWidth()
+        ) {
+            CardColumnContent(strawHat, expanded, onClick, modifier)
+        }
+    }
+
+    @Composable
+    private fun CardColumnContent(
+        strawHat: StrawHat,
+        expanded: Boolean,
+        onClick: () -> Unit,
+        modifier: Modifier
+    ) {
+        CardTopContent(strawHat, expanded, onClick)
+
+        StrawHatImage(strawHat.image, strawHat.name)
+
+        if (expanded) {
+            StrawHatDescription(
+                strawHat.description,
+                modifier = modifier
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_small),
+                        end = dimensionResource(R.dimen.padding_medium),
+                    )
+            )
+        }
+    }
+
+    @Composable
+    private fun CardTopContent(
+        strawHat: StrawHat,
+        expanded: Boolean,
+        onClick: () -> Unit
+    ) {
+        Row(
+            verticalAlignment = Alignment.Top
+        ) {
+            StrawHatTopText(strawHat.day, strawHat.name, strawHat.alias)
+            Spacer(modifier = Modifier.weight(1f))
+            ExpandCardButton(
+                expanded = expanded,
+                onClick = onClick
+            )
         }
     }
 
@@ -154,7 +183,7 @@ object StrawHatScreen {
     }
 
     @Composable
-    private fun ExpandButton(
+    private fun ExpandCardButton(
         expanded: Boolean,
         modifier: Modifier = Modifier,
         onClick: () -> Unit
@@ -165,7 +194,7 @@ object StrawHatScreen {
         ) {
             Icon(
                 imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                contentDescription = null,//stringResource(R.string.expand_button_content_description),
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.secondary
             )
         }
