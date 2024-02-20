@@ -120,7 +120,7 @@ private fun TitleRow() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(R.string.app_name),
+            text = stringResource(R.string.title),
             style = MaterialTheme.typography.displayLarge
         )
         Spacer(Modifier.width(dimensionResource(R.dimen.padding_small)))
