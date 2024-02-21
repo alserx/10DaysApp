@@ -49,7 +49,7 @@ object StrawHatScreen {
             targetValue =
             if (expanded) MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f)
             else MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
-            label = "Straw Hat Card background",
+            label = "",
         )
         val onClick = { expanded = !expanded }
 
@@ -169,20 +169,17 @@ object StrawHatScreen {
         @StringRes strawHatName: Int,
         modifier: Modifier = Modifier
     ) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                alignment = Alignment.Center,
-                modifier = modifier
-                    .size(dimensionResource(R.dimen.image_size))
-                    .clip(MaterialTheme.shapes.small),
-                painter = painterResource(strawHatIcon),
-                contentScale = ContentScale.FillHeight,
-                contentDescription = stringResource(strawHatName),
-            )
-        }
+
+        Image(
+            alignment = Alignment.Center,
+            modifier = modifier
+                .size(dimensionResource(R.dimen.image_size))
+                .clip(MaterialTheme.shapes.small),
+            painter = painterResource(strawHatIcon),
+            contentScale = ContentScale.FillHeight,
+            contentDescription = stringResource(strawHatName),
+        )
+
     }
 
     @Composable
