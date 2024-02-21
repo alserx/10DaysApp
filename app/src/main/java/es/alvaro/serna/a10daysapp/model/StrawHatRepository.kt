@@ -2,8 +2,8 @@ package es.alvaro.serna.a10daysapp.model
 
 import es.alvaro.serna.a10daysapp.R
 
-object StrawHatRepository {
-    val strawHats = listOf(
+class StrawHatRepository {
+    private val strawHats = listOf(
         StrawHat(
             R.string.day1,
             R.string.mugiwara1,
@@ -75,4 +75,8 @@ object StrawHatRepository {
             listOf(R.drawable.jinbe_1, R.drawable.jinbe_2, R.drawable.jinbe_3)
         )
     )
+
+    fun getStrawHats(): List<StrawHat> {
+        return strawHats
+    }
 }

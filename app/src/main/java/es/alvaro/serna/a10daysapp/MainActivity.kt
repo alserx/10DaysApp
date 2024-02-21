@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import es.alvaro.serna.a10daysapp.StrawHatScreen.StrawHatCard
 import es.alvaro.serna.a10daysapp.model.StrawHat
-import es.alvaro.serna.a10daysapp.model.StrawHatRepository.strawHats
+import es.alvaro.serna.a10daysapp.model.StrawHatRepository
 import es.alvaro.serna.a10daysapp.ui.theme.The10DaysAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -70,7 +70,7 @@ fun The10DaysOfApp(darkTheme: Boolean = isSystemInDarkTheme()) {
         Box(modifier = Modifier.fillMaxSize()) {
             BackgroundImage(darkTheme, Modifier.matchParentSize())
             LazyColumn(contentPadding = it) {
-                items(strawHats) {
+                items(StrawHatRepository().getStrawHats()) {
                     StrawHatCard(
                         strawHat = it,
                         modifier = Modifier.padding(
@@ -141,7 +141,7 @@ fun AppPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun DarkAppPreview() {
     The10DaysAppTheme(darkTheme = true) {
