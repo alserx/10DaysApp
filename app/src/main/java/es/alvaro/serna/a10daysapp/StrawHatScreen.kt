@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -96,7 +98,18 @@ object StrawHatScreen {
     ) {
         CardTopContent(strawHat, expanded, onClick)
 
-        StrawHatImage(strawHat.image, strawHat.name)
+        LazyRow(
+            modifier = modifier
+                .padding(
+                    vertical = dimensionResource(R.dimen.padding_small),
+                    horizontal = dimensionResource(R.dimen.padding_extra_small)
+                ),
+        ) {
+
+            items(strawHat.images) {
+                StrawHatImage(it, strawHat.name)
+            }
+        }
 
         if (expanded) {
             StrawHatDescription(
@@ -164,7 +177,6 @@ object StrawHatScreen {
                 alignment = Alignment.Center,
                 modifier = modifier
                     .size(dimensionResource(R.dimen.image_size))
-                    .padding(dimensionResource(R.dimen.padding_small))
                     .clip(MaterialTheme.shapes.small),
                 painter = painterResource(strawHatIcon),
                 contentScale = ContentScale.FillHeight,

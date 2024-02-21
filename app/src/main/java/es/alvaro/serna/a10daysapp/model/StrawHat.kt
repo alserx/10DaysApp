@@ -8,5 +8,5 @@ data class StrawHat(
     @StringRes val name: Int,
     @StringRes val alias: Int,
     @StringRes val description: Int,
-    @DrawableRes val image: Int
+    @DrawableRes val images: List<Int>
 )

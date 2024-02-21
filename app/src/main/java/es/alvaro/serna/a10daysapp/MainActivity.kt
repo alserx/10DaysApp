@@ -159,7 +159,7 @@ fun CardPreview() {
                 R.string.mugiwara1,
                 R.string.alias1,
                 R.string.description1,
-                R.drawable.luffy
+                listOf(R.drawable.luffy_1)
             )
         )
     }
