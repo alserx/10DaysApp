@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import es.alvaro.serna.a10daysapp.StrawHatScreen.StrawHatCard
 import es.alvaro.serna.a10daysapp.model.StrawHat
-import es.alvaro.serna.a10daysapp.model.StrawHatRepository
+import es.alvaro.serna.a10daysapp.datasource.StrawHatRepository
 import es.alvaro.serna.a10daysapp.ui.theme.The10DaysAppTheme
 
 class MainActivity : ComponentActivity() {
