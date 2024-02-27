@@ -1,18 +1,6 @@
 <resources>
     <string name="app_name">10 Days of One Piece</string>
     <string name="title">10 DAYS OF</string>
-    <string name="day1">DAY 1</string>
-    <string name="mugiwara1">MONKEY D. LUFFY</string>
-    <string name="alias1">Straw Hat</string>
-    <string name="description1">The founder and captain of the increasingly infamous and powerful Straw Hat Pirates, as well as the most powerful of its top fighters. He desires to find the legendary treasure left behind by the late Gol D. Roger and thereby become the Pirate King.</string>
-    <string name="day2">DAY 2</string>
-    <string name="mugiwara2">RORONOA ZORO</string>
-    <string name="alias2">The Pirate Hunter</string>
-    <string name="description2">He is a main combatant of the Straw Hat Pirates, one of their two swordsmen, one of the Senior Officers of the Straw Hat Grand Fleet, and is publicly recognized as the right-hand man of his crew\'s captain Monkey D. Luffy. Formerly a bounty hunter, he is the second member of Luffy\'s crew and the first to join it. His dream is to become the greatest swordsman in the world, in order to honor a promise he made to his deceased childhood friend and distant cousin Kuina.</string>
-    <string name="day3">DAY 3</string>
-    <string name="mugiwara3">NAMI</string>
-    <string name="alias3">The Cat Burglar</string>
-    <string name="description3">She is the navigator of the Straw Hat Pirates and one of the Senior Officers of the Straw Hat Grand Fleet. She is the third member of the crew and the second to join it. Her dream is to make a map of the entire world.</string>
     <string name="day4">DAY 4</string>
     <string name="mugiwara4">GOD USOPP</string>
     <string name="alias4">Sogeking</string>

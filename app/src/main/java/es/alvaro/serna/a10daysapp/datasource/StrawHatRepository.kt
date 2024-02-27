@@ -1,5 +1,7 @@
 package es.alvaro.serna.a10daysapp.datasource
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import es.alvaro.serna.a10daysapp.model.StrawHat
 
@@ -16,73 +18,33 @@ class StrawHatRepository {
     private val strawHats = DB.collection(COLLECTION_NAME)
 
 
-    fun getStrawHats(): List<StrawHat> {
+    fun getStrawHats(setList: (List<StrawHat>) -> Unit) {
+
         val strawHatList = mutableListOf<StrawHat>()
 
         strawHats.get().addOnSuccessListener { documents ->
 
             for (document in documents) {
-                val day = document.get(DAY_FIELD) as? Int
-                val name = document.get(NAME_FIELD) as? Int
-                val alias = document.get(ALIAS_FIELD) as? Int
-                val description = document.get(DESCRIPTION_FIELD) as? Int
-                val images = document.get(IMAGES_FIELD) as? List<Int>
+                val day = document.getString(DAY_FIELD)
+                val name = document.getString(NAME_FIELD)
+                val alias = document.getString(ALIAS_FIELD)
+                val description = document.getString(DESCRIPTION_FIELD)
+                val images = document.get(IMAGES_FIELD) as? List<String>
 
                 val dataModel = StrawHat(
-                    day ?: -1,
-                    name ?: -1,
-                    alias ?: -1,
-                    description ?: -1,
+                    day ?: "",
+                    name ?: "",
+                    alias ?: "",
+                    description ?: "",
                     images ?: listOf()
                 )
 
                 strawHatList.add(dataModel)
+                Log.i(TAG, "------> AUTOR: $name")
             }
+
+            setList(strawHatList)
         }
-
-        return strawHatList
-
-//        return listOf(
-//            StrawHat(
-//                R.string.day1,
-//                R.string.mugiwara1,
-//                R.string.alias1,
-//                R.string.description1,
-//                listOf(
-//                    R.drawable.luffy_1,
-//                    R.drawable.luffy_2,
-//                    R.drawable.luffy_3,
-//                    R.drawable.luffy_4
-//                )
-//            ),
-//            StrawHat(
-//                R.string.day2,
-//                R.string.mugiwara2,
-//                R.string.alias2,
-//                R.string.description2,
-//                listOf(R.drawable.zoro_1, R.drawable.zoro_2)
-//            ),
-//            StrawHat(
-//                R.string.day3,
-//                R.string.mugiwara3,
-//                R.string.alias3,
-//                R.string.description3,
-//                listOf(R.drawable.nami_1, R.drawable.nami_2)
-//            ),
-//            StrawHat(
-//                R.string.day4,
-//                R.string.mugiwara4,
-//                R.string.alias4,
-//                R.string.description4,
-//                listOf(R.drawable.usopp_1, R.drawable.usopp_2)
-//            ),
-//            StrawHat(
-//                R.string.day5,
-//                R.string.mugiwara5,
-//                R.string.alias5,
-//                R.string.description5,
-//                listOf(R.drawable.sanji_1, R.drawable.sanji_2, R.drawable.sanji_3)
-//            ),
 //            StrawHat(
 //                R.string.day6,
 //                R.string.mugiwara6,

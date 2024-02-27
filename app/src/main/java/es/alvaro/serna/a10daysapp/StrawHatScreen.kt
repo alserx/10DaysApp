@@ -1,12 +1,9 @@
 package es.alvaro.serna.a10daysapp
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,9 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import coil.compose.AsyncImage
 import es.alvaro.serna.a10daysapp.model.StrawHat
+
 
 object StrawHatScreen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -143,21 +140,21 @@ object StrawHatScreen {
 
     @Composable
     fun StrawHatTopText(
-        @StringRes strawHatDay: Int,
-        @StringRes strawHatName: Int,
-        @StringRes strawHatAlias: Int
+        strawHatDay: String,
+        strawHatName: String,
+        strawHatAlias: String
     ) {
         Column {
             Text(
-                text = stringResource(strawHatDay),
+                text = strawHatDay,
                 style = MaterialTheme.typography.displayMedium
             )
             Text(
-                text = stringResource(strawHatName),
+                text = strawHatName,
                 style = MaterialTheme.typography.displaySmall
             )
             Text(
-                text = stringResource(strawHatAlias),
+                text = strawHatAlias,
                 style = MaterialTheme.typography.titleSmall
             )
         }
@@ -165,30 +162,30 @@ object StrawHatScreen {
 
     @Composable
     fun StrawHatImage(
-        @DrawableRes strawHatIcon: Int,
-        @StringRes strawHatName: Int,
+        strawHatIcon: String,
+        strawHatName: String,
         modifier: Modifier = Modifier
     ) {
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Image(
+            AsyncImage(
                 alignment = Alignment.Center,
                 modifier = modifier
                     .size(dimensionResource(R.dimen.image_size))
                     .clip(MaterialTheme.shapes.small),
-                painter = painterResource(strawHatIcon),
+                model = strawHatIcon,
                 contentScale = ContentScale.FillHeight,
-                contentDescription = stringResource(strawHatName),
+                contentDescription = strawHatName
             )
         }
     }
 
     @Composable
-    fun StrawHatDescription(strawHatDescription: Int, modifier: Modifier = Modifier) {
+    fun StrawHatDescription(strawHatDescription: String, modifier: Modifier = Modifier) {
         Text(
-            text = stringResource(strawHatDescription),
+            text = strawHatDescription,
             style = MaterialTheme.typography.bodyLarge,
             modifier = modifier
         )

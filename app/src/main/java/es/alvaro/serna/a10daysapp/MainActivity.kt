@@ -24,6 +24,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,8 +37,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import es.alvaro.serna.a10daysapp.StrawHatScreen.StrawHatCard
-import es.alvaro.serna.a10daysapp.model.StrawHat
 import es.alvaro.serna.a10daysapp.datasource.StrawHatRepository
+import es.alvaro.serna.a10daysapp.model.StrawHat
 import es.alvaro.serna.a10daysapp.ui.theme.The10DaysAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,6 +60,8 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun The10DaysOfApp(darkTheme: Boolean = isSystemInDarkTheme()) {
+    var strawHatList by remember { mutableStateOf(listOf<StrawHat>()) }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +76,8 @@ fun The10DaysOfApp(darkTheme: Boolean = isSystemInDarkTheme()) {
         Box(modifier = Modifier.fillMaxSize()) {
             BackgroundImage(darkTheme, Modifier.matchParentSize())
             LazyColumn(contentPadding = it) {
-                items(StrawHatRepository().getStrawHats()) {
+                StrawHatRepository().getStrawHats { strawHatList = it }
+                items(strawHatList) {
                     StrawHatCard(
                         strawHat = it,
                         modifier = Modifier.padding(
@@ -146,21 +153,5 @@ fun AppPreview() {
 fun DarkAppPreview() {
     The10DaysAppTheme(darkTheme = true) {
         The10DaysOfApp(true)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CardPreview() {
-    The10DaysAppTheme {
-        StrawHatCard(
-            StrawHat(
-                R.string.day1,
-                R.string.mugiwara1,
-                R.string.alias1,
-                R.string.description1,
-                listOf(R.drawable.luffy_1)
-            )
-        )
     }
 }
