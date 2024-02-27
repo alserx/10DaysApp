@@ -7,7 +7,6 @@ import es.alvaro.serna.a10daysapp.model.StrawHat
 
 class StrawHatRepository {
     private val COLLECTION_NAME = "strawhats"
-    private val DAY_FIELD = "day"
     private val NAME_FIELD = "name"
     private val ALIAS_FIELD = "alias"
     private val DESCRIPTION_FIELD = "description"
@@ -25,14 +24,12 @@ class StrawHatRepository {
         strawHats.get().addOnSuccessListener { documents ->
 
             for (document in documents) {
-                val day = document.getString(DAY_FIELD)
                 val name = document.getString(NAME_FIELD)
                 val alias = document.getString(ALIAS_FIELD)
                 val description = document.getString(DESCRIPTION_FIELD)
                 val images = document.get(IMAGES_FIELD) as? List<String>
 
                 val dataModel = StrawHat(
-                    day ?: "",
                     name ?: "",
                     alias ?: "",
                     description ?: "",
@@ -40,11 +37,12 @@ class StrawHatRepository {
                 )
 
                 strawHatList.add(dataModel)
-                Log.i(TAG, "------> AUTOR: $name")
             }
 
             setList(strawHatList)
         }
+    }
+}
 //            StrawHat(
 //                R.string.day6,
 //                R.string.mugiwara6,
@@ -81,5 +79,3 @@ class StrawHatRepository {
 //                listOf(R.drawable.jinbe_1, R.drawable.jinbe_2, R.drawable.jinbe_3)
 //            )
 //        )
-    }
-}

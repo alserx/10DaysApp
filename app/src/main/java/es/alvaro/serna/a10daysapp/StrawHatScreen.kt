@@ -129,7 +129,7 @@ object StrawHatScreen {
         Row(
             verticalAlignment = Alignment.Top
         ) {
-            StrawHatTopText(strawHat.day, strawHat.name, strawHat.alias)
+            StrawHatTopText(strawHat.name, strawHat.alias)
             Spacer(modifier = Modifier.weight(1f))
             ExpandCardButton(
                 expanded = expanded,
@@ -140,18 +140,13 @@ object StrawHatScreen {
 
     @Composable
     fun StrawHatTopText(
-        strawHatDay: String,
         strawHatName: String,
         strawHatAlias: String
     ) {
         Column {
             Text(
-                text = strawHatDay,
-                style = MaterialTheme.typography.displayMedium
-            )
-            Text(
                 text = strawHatName,
-                style = MaterialTheme.typography.displaySmall
+                style = MaterialTheme.typography.displayMedium
             )
             Text(
                 text = strawHatAlias,
